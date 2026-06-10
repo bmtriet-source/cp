@@ -215,11 +215,11 @@
     </header>
     
     <div class="media-container">
-        <img id="scenery-img" src="broken_fan.png" alt="Complaint Scene">
+        <img id="scenery-img" src="https://images.unsplash.com/photo-1618945533005-4654b9d3b136?w=500&auto=format&fit=crop" alt="Complaint Scene">
     </div>
 
     <div class="character-bubble">
-        <div class="character-name" id="char-name">Customer Service</div>
+        <div class="character-name" id="char-name">Customer</div>
         <div id="story" class="story-text">...</div>
     </div>
 
@@ -242,11 +242,11 @@
 </div>
 
 <script>
-    // Kịch bản xử lý khiếu nại cây quạt mini hỏng (Đã chuyển đổi định dạng ảnh sang .png)
+    // Để chạy offline không lỗi, tôi thay thế tạm link ảnh online từ Unsplash. Bạn có thể đổi lại tên file của bạn sau.
     const scriptTree = {
         'start': {
             text: 'Customer: "Hello, I bought this mini fan yesterday, but it is not working at all. The blade doesn\'t spin and it gets very hot when charging. I want a solution!"',
-            img: 'broken_fan.png',
+            img: 'https://images.unsplash.com/photo-1618945533005-4654b9d3b136?w=500&auto=format&fit=crop', // Ảnh quạt hỏng/sửa chữa
             keywords: {
                 'refund': 'refund_scene',
                 'exchange': 'exchange_scene',
@@ -259,7 +259,7 @@
         },
         'refund_scene': {
             text: 'Customer: "A refund sounds fair. Do I need to send the broken fan back to your store? And how long will it take to get my money back?"',
-            img: 'refund_process.png',
+            img: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=500&auto=format&fit=crop', // Ảnh tiền/hoàn tiền
             keywords: {
                 'return': 'refund_end',
                 'keep': 'refund_end',
@@ -272,7 +272,7 @@
         },
         'exchange_scene': {
             text: 'Customer: "An exchange is fine because I really need a fan for this hot summer. But will I have to pay for the shipping fee of the replacement?"',
-            img: 'new_fan.png',
+            img: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=500&auto=format&fit=crop', // Ảnh sản phẩm mới
             keywords: {
                 'free': 'exchange_end',
                 'cover': 'exchange_end',
@@ -285,13 +285,13 @@
         },
         'refund_end': {
             text: 'Customer: "Alright, thank you for your quick support. I appreciate your professional customer service. Have a good day!" 💳✨',
-            img: 'success_case.png',
+            img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop', // Ảnh CSKH thành công
             keywords: {}, 
             options: []
         },
         'exchange_end': {
             text: 'Customer: "Great! That is very generous of you. Please ship the new fan to my registered address. Thank you so much!" 📦🎉',
-            img: 'success_case.png',
+            img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop',
             keywords: {}, 
             options: []
         }
@@ -379,7 +379,55 @@
         };
     }
 
+    // --- PHẦN SỬA ĐỔI VÀ ĐIỀN TIẾP LOGIC BỊ THIẾU ---
+
+    // Hàm cập nhật trạng thái giao diện và kịch bản thoại
     function updateApplicationState() {
         const stage = scriptTree[currentStage];
+        
+        // Cập nhật text hội thoại và hình ảnh ứng với stage hiện tại
         storyText.innerText = stage.text;
-        sceneryImg
+        sceneryImg.src = stage.img;
+        
+        // Xóa danh sách gợi ý cũ và render danh sách mới
+        optionsList.innerHTML = '';
+        
+        if (stage.options.length > 0) {
+            interactionBox.style.display = "block"; // Hiện bảng gợi ý nếu có option
+            stage.options.forEach(option => {
+                const div = document.createElement('div');
+                div.className = 'option-line';
+                div.innerText = option;
+                optionsList.appendChild(div);
+            });
+            startBtn.style.display = "inline-flex"; // Hiện nút bấm nói
+        } else {
+            // Khi kết thúc kịch bản (không còn option nào)
+            interactionBox.style.display = "none"; 
+            startBtn.style.display = "none"; // Ẩn nút nói
+            statusText.className = "status-success";
+            statusText.innerText = "🎉 Hoàn thành bài thực hành xử lý khiếu nại!";
+        }
+    }
+
+    // Hàm reset game quay về từ đầu
+    function resetGame() {
+        currentStage = 'start';
+        transcriptText.innerText = '...';
+        statusText.className = "";
+        statusText.innerText = "Sẵn sàng. Hãy cấp quyền truy cập Micro khi được hỏi.";
+        startBtn.disabled = false;
+        startBtn.style.display = "inline-flex";
+        btnText.innerText = "Bắt đầu nói (Chạm để nói)";
+        btnIcon.innerText = "🎙️";
+        updateApplicationState();
+    }
+
+    // Tự động khởi chạy lần đầu tiên khi vừa tải trang
+    window.onload = () => {
+        updateApplicationState();
+    };
+</script>
+
+</body>
+</html>
