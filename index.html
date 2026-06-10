@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mini Fan Complaint - Webkit Speech</title>
     <style>
+        /* [Phần Style cũ được giữ nguyên] */
         :root {
             --primary-color: #c53030;
             --primary-hover: #9b2c2c;
@@ -15,14 +16,14 @@
             --accent-color: #dd6b20;
             --success-color: #38a169;
         }
-
+        
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
         }
-
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-color);
@@ -33,7 +34,7 @@
             min-height: 100vh;
             padding: 12px;
         }
-
+        
         .app-container {
             background: var(--card-bg);
             padding: 16px;
@@ -45,19 +46,19 @@
             border: 1px solid #fed7d7;
             margin-top: 10px;
         }
-
+        
         header h1 {
             font-size: 1.4rem;
             color: var(--primary-color);
             margin-bottom: 2px;
         }
-
+        
         header p {
             font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: 12px;
         }
-
+        
         .media-container {
             width: 100%;
             height: 220px;
@@ -66,13 +67,13 @@
             overflow: hidden;
             margin-bottom: 12px;
         }
-
+        
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
+        
         .character-bubble {
             background: #fff5f5;
             border-left: 4px solid var(--primary-color);
@@ -81,7 +82,7 @@
             text-align: left;
             margin-bottom: 12px;
         }
-
+        
         .character-name {
             font-weight: bold;
             color: var(--primary-color);
@@ -89,13 +90,13 @@
             font-size: 0.8rem;
             text-transform: uppercase;
         }
-
+        
         .story-text {
             font-size: 1rem;
             line-height: 1.4;
             font-style: italic;
         }
-
+        
         .interaction-panel {
             background: #fffaf0;
             padding: 14px;
@@ -104,14 +105,14 @@
             margin-bottom: 16px;
             border: 1px dashed #feebc8;
         }
-
+        
         .interaction-panel p {
             font-weight: 600;
             margin-bottom: 8px;
             color: #dd6b20;
             font-size: 0.9rem;
         }
-
+        
         .option-line {
             margin: 8px 0;
             font-size: 0.95rem;
@@ -120,7 +121,7 @@
             position: relative;
             line-height: 1.3;
         }
-
+        
         .option-line::before {
             content: "•";
             color: var(--accent-color);
@@ -128,14 +129,14 @@
             position: absolute;
             left: 0;
         }
-
+        
         .controls {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
         }
-
+        
         .voice-btn {
             background-color: var(--primary-color);
             color: white;
@@ -152,17 +153,17 @@
             align-items: center;
             gap: 8px;
         }
-
+        
         .voice-btn:active {
             background-color: var(--primary-hover);
             transform: scale(0.98);
         }
-
+        
         .voice-btn:disabled {
             background-color: #cbd5e0;
             box-shadow: none;
         }
-
+        
         .restart-btn {
             background-color: transparent;
             color: var(--text-muted);
@@ -172,7 +173,7 @@
             border-radius: 20px;
             cursor: pointer;
         }
-
+        
         .status-box {
             margin-top: 12px;
             padding: 10px;
@@ -181,24 +182,24 @@
             background: #f7fafc;
             width: 100%;
         }
-
+        
         .status-active {
             color: var(--accent-color);
             font-weight: 600;
             animation: pulse 1.5s infinite;
         }
-
+        
         .status-success { color: var(--success-color); font-weight: 600; }
         .status-error { color: #e53e3e; font-weight: 600; }
-
+        
         .transcript-zone {
             margin-top: 6px;
             font-size: 0.85rem;
             color: var(--text-muted);
         }
-
+        
         .transcript-text { font-weight: bold; color: #e53e3e; }
-
+        
         @keyframes pulse {
             0% { opacity: 0.6; }
             50% { opacity: 1; }
@@ -215,11 +216,11 @@
     </header>
     
     <div class="media-container">
-        <img id="scenery-img" src="https://images.unsplash.com/photo-1618945533005-4654b9d3b136?w=500&auto=format&fit=crop" alt="Complaint Scene">
+        <img id="scenery-img" src="fan.png" alt="Complaint Scene">
     </div>
 
     <div class="character-bubble">
-        <div class="character-name" id="char-name">Customer</div>
+        <div class="character-name" id="char-name">Customer Service</div>
         <div id="story" class="story-text">...</div>
     </div>
 
@@ -242,11 +243,11 @@
 </div>
 
 <script>
-    // Để chạy offline không lỗi, tôi thay thế tạm link ảnh online từ Unsplash. Bạn có thể đổi lại tên file của bạn sau.
+    // Kịch bản và hình ảnh tương ứng cho mỗi lựa chọn
     const scriptTree = {
         'start': {
             text: 'Customer: "Hello, I bought this mini fan yesterday, but it is not working at all. The blade doesn\'t spin and it gets very hot when charging. I want a solution!"',
-            img: 'https://images.unsplash.com/photo-1618945533005-4654b9d3b136?w=500&auto=format&fit=crop', // Ảnh quạt hỏng/sửa chữa
+            img: 'fan.png',
             keywords: {
                 'refund': 'refund_scene',
                 'exchange': 'exchange_scene',
@@ -259,7 +260,7 @@
         },
         'refund_scene': {
             text: 'Customer: "A refund sounds fair. Do I need to send the broken fan back to your store? And how long will it take to get my money back?"',
-            img: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=500&auto=format&fit=crop', // Ảnh tiền/hoàn tiền
+            img: 'refund.png',
             keywords: {
                 'return': 'refund_end',
                 'keep': 'refund_end',
@@ -272,7 +273,7 @@
         },
         'exchange_scene': {
             text: 'Customer: "An exchange is fine because I really need a fan for this hot summer. But will I have to pay for the shipping fee of the replacement?"',
-            img: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=500&auto=format&fit=crop', // Ảnh sản phẩm mới
+            img: 'exchange.png',
             keywords: {
                 'free': 'exchange_end',
                 'cover': 'exchange_end',
@@ -285,20 +286,19 @@
         },
         'refund_end': {
             text: 'Customer: "Alright, thank you for your quick support. I appreciate your professional customer service. Have a good day!" 💳✨',
-            img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop', // Ảnh CSKH thành công
+            img: 'success.png',
             keywords: {}, 
             options: []
         },
         'exchange_end': {
             text: 'Customer: "Great! That is very generous of you. Please ship the new fan to my registered address. Thank you so much!" 📦🎉',
-            img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop',
+            img: 'success.png',
             keywords: {}, 
             options: []
         }
     };
 
     let currentStage = 'start';
-
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     let recognition = null;
 
@@ -320,6 +320,33 @@
     const storyText = document.getElementById('story');
     const optionsList = document.getElementById('options-list');
     const interactionBox = document.getElementById('interaction-box');
+
+    function updateApplicationState() {
+        const stage = scriptTree[currentStage];
+        
+        storyText.innerText = stage.text;
+        
+        // Cập nhật đường dẫn ảnh một cách chính xác
+        // Sử dụng đường dẫn tương đối sẽ hoạt động tốt trên Github Pages
+        sceneryImg.src = stage.img;
+        
+        optionsList.innerHTML = '';
+        if (stage.options.length > 0) {
+            interactionBox.style.display = "block";
+            stage.options.forEach(option => {
+                const div = document.createElement('div');
+                div.className = 'option-line';
+                div.innerText = option;
+                optionsList.appendChild(div);
+            });
+            startBtn.style.display = "inline-flex";
+        } else {
+            interactionBox.style.display = "none";
+            startBtn.style.display = "none";
+            statusText.className = "status-success";
+            statusText.innerText = "Hoàn thành bài luyện tập!";
+        }
+    }
 
     if (recognition) {
         startBtn.addEventListener('click', () => {
@@ -354,80 +381,4 @@
 
             for (let key in currentKeywords) {
                 if (resultText.includes(key)) {
-                    currentStage = currentKeywords[key];
-                    updateApplicationState();
-                    isMatched = true;
-                    break;
-                }
-            }
-
-            if (isMatched) {
-                statusText.className = "status-success";
-                statusText.innerText = "✅ Nhận diện chính xác! Đã cập nhật phản hồi từ khách.";
-            } else {
-                statusText.className = "status-error";
-                statusText.innerText = "❌ Chưa khớp câu thoại gợi ý. Bạn hãy đọc lại rõ ràng hơn nhé!";
-            }
-        };
-
-        recognition.onerror = (event) => {
-            startBtn.disabled = false;
-            btnText.innerText = "Bắt đầu nói (Chạm để nói)";
-            btnIcon.innerText = "🎙️";
-            statusText.className = "status-error";
-            statusText.innerText = "Lỗi kết nối Micro: " + event.error;
-        };
-    }
-
-    // --- PHẦN SỬA ĐỔI VÀ ĐIỀN TIẾP LOGIC BỊ THIẾU ---
-
-    // Hàm cập nhật trạng thái giao diện và kịch bản thoại
-    function updateApplicationState() {
-        const stage = scriptTree[currentStage];
-        
-        // Cập nhật text hội thoại và hình ảnh ứng với stage hiện tại
-        storyText.innerText = stage.text;
-        sceneryImg.src = stage.img;
-        
-        // Xóa danh sách gợi ý cũ và render danh sách mới
-        optionsList.innerHTML = '';
-        
-        if (stage.options.length > 0) {
-            interactionBox.style.display = "block"; // Hiện bảng gợi ý nếu có option
-            stage.options.forEach(option => {
-                const div = document.createElement('div');
-                div.className = 'option-line';
-                div.innerText = option;
-                optionsList.appendChild(div);
-            });
-            startBtn.style.display = "inline-flex"; // Hiện nút bấm nói
-        } else {
-            // Khi kết thúc kịch bản (không còn option nào)
-            interactionBox.style.display = "none"; 
-            startBtn.style.display = "none"; // Ẩn nút nói
-            statusText.className = "status-success";
-            statusText.innerText = "🎉 Hoàn thành bài thực hành xử lý khiếu nại!";
-        }
-    }
-
-    // Hàm reset game quay về từ đầu
-    function resetGame() {
-        currentStage = 'start';
-        transcriptText.innerText = '...';
-        statusText.className = "";
-        statusText.innerText = "Sẵn sàng. Hãy cấp quyền truy cập Micro khi được hỏi.";
-        startBtn.disabled = false;
-        startBtn.style.display = "inline-flex";
-        btnText.innerText = "Bắt đầu nói (Chạm để nói)";
-        btnIcon.innerText = "🎙️";
-        updateApplicationState();
-    }
-
-    // Tự động khởi chạy lần đầu tiên khi vừa tải trang
-    window.onload = () => {
-        updateApplicationState();
-    };
-</script>
-
-</body>
-</html>
+                    currentStage = currentKeywords
